@@ -1,49 +1,38 @@
 package com.example.springboot;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController {
 
-//    ?: 한 글자 (“/author/???” => “/author/123”) , (“/author?” => “/author3”)
-//    *: 여러 글자 (“/author/*” => “/author/keesun”)
-//    **: 여러 패스 (“/author/** => “/author/keesun/book”)
-
-    @GetMapping({"/hello", "/hi"})
-    @ResponseBody // @ResponseBody를 붙이면 hello를 return하며, 안붙이면 hello.html을 찾는다.
-    public String hello() {
-        return "hello";
-    }
-
-    /* Header 정보 요청*/
-    @GetMapping(value = "/json",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.TEXT_PLAIN_VALUE)
+    @GetMapping("/events/{id}")
     @ResponseBody
-    public String headerRequest() {
-        return "hello";
+    public Event events(@PathVariable Integer id) {
+        Event event = new Event();
+        event.setId(id);
+        return event;
     }
 
-    /* Header 정보 요청*/
-    @GetMapping(value = "/header"
-                , headers = HttpHeaders.FROM)
+    // 요청 매개변수
+    @PostMapping("/events")
     @ResponseBody
-    public String header() {
-        return "hello";
+    public Event requestParamsEvents(@RequestParam String name) {
+        Event event = new Event();
+        event.setName(name);
+        return event;
     }
 
-    /* 커스텀 애노테이션 */
-    @GetByeMapping
+    @GetMapping("/matrixEvents/{id}")
     @ResponseBody
-    public String bye() {
-        return "bye";
+    public Event matrixVariableEvents(@PathVariable Integer id, @MatrixVariable String name) {
+        Event event = new Event();
+        event.setId(id);
+        event.setName(name);
+        return event;
     }
-
-
 
 
 }
