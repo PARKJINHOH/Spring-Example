@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import static org.hamcrest.Matchers.notNullValue;
 @WebMvcTest
 public class SampleControllerTest {
 
@@ -21,7 +21,8 @@ public class SampleControllerTest {
         mockMvc.perform(get("/events/form"))
                 .andDo(print())
                 .andExpect(view().name("/events/form"))
-                .andExpect(model().attributeExists("event"));
+                .andExpect(model().attributeExists("event"))
+                .andExpect(request().sessionAttribute("event", notNullValue()));
     }
 
     @Test
