@@ -9,10 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ExampleController {
 
-    @GetMapping("/")
+    @GetMapping("/hello")
     public String hello() {
-        log.info("=== ExampleController ===");
+        log.info("=== Controller : hello ===");
         return "hello";
+    }
+
+    @GetMapping("/hi")
+    public String hi() {
+        log.info("=== Controller : hi ===");
+        return "hi";
     }
 
 }
