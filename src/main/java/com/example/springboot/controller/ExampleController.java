@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ExampleController {
 
+    @GetMapping("/")
+    public String test() {
+        log.info("=== Controller : test ===");
+        return "test";
+    }
+
     @GetMapping("/hello")
     public String hello() {
         log.info("=== Controller : hello ===");
